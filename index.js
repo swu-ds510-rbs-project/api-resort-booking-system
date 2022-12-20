@@ -4,6 +4,7 @@ import config from 'config';
 
 import db from './database/connection.js';
 import houseRouter from './routes/house.js'
+import guestRouter from './routes/guest.js'
 
 const app = express();
 const PORT = config.get("PORT");
@@ -36,5 +37,6 @@ app.get('/titles', async (req, res) => {
 });
 
 app.use('/house', houseRouter);
+app.use('/guest', guestRouter);
 
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
