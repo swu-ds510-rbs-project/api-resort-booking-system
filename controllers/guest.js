@@ -32,4 +32,22 @@ export default class GuestController {
             res.status(500).json({ status: false, error: e.message })
         }
     }
+
+    static async apiAuthenGuest(req, res, next) {
+        try {
+            var token = ''
+            if (req.headers.authorization) token = req.headers.authorization.split(" ")[1]
+            GuestModel.verifyGuest(token, (err, data) => {
+                if (err) res.status(500).json({ status: false, error: err })
+                else {
+                    GuestModel.getGuestByEmail(data.email, (err, data) => {
+                        if (err) res.status(500).json({ status: false, error: err })
+                        else res.send({ status: true, data: data[0] });
+                    })
+                }
+            })
+        } catch (e) {
+            res.status(500).json({ error: e.message })
+        }
+    }
 }
