@@ -6,5 +6,6 @@ const router = express.Router()
 
 router.post("/", registerGuestValidator, GuestController.apiRegisterGuest)
 router.post("/login", loginGuestValidator, GuestController.apiLoginGuest)
+router.post("/authen", GuestController.apiAuthenGuest)
 
 export default router
