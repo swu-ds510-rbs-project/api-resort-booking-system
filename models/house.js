@@ -8,11 +8,8 @@ export default class House {
                 or (checkout_date > ? and checkout_date < ? ))`
         const params = [filter.checkin_date, filter.checkout_date, filter.checkin_date, filter.checkout_date]
         db.query(query, params, (err, res) => {
-            if (err) {
-                console.log(err);
-            } else {
-                result(null, res);
-            };
+            if (err) result(err, null);
+            else result(null, res);
         })
     }
 }
