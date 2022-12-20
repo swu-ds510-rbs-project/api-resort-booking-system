@@ -53,4 +53,32 @@ export default class Guest {
             return { error: e }
         }
     }
+
+    static async verifyGuest(token, result) {
+        try {
+            console.log(token)
+            var decoded = jwt.verify(token, SECRET);
+            result(null, decoded)
+        } catch (e) {
+            console.error(`Unable to verify: ${e}`)
+            result(e, null)
+        }
+    }
+
+    static async getGuestByEmail(email, result) {
+        try {
+            let query = "SELECT * FROM guest where email = ?"
+            db.query(query, email, (err, res) => {
+                if (err) result(err, null);
+                else if (res.length === 0) result("not found email", null);
+                else {
+                    delete res[0].password;
+                    result(null, res);
+                }
+            })
+        } catch (e) {
+            console.error(`Unable to login: ${e}`)
+            return { error: e }
+        }
+    }
 }
