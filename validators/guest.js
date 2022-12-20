@@ -21,7 +21,18 @@ export const registerGuestValidator = [
     body('password', 'กรุณากรอกรหัสผ่าน').not().isEmpty(),
     (req, res, next) => {
         const errors = validationResult(req);
-        if (!errors.isEmpty()) // ถ้ามี error จะทำอะไรบ้าง?
+        if (!errors.isEmpty())
+            return res.status(400).json({ status: false, input_err: errors["errors"] });
+        next();
+    }
+]
+
+export const loginGuestValidator = [
+    body('email', 'กรุณากรอกอีเมลให้ถูกต้อง').isEmail(),
+    body('password', 'กรุณากรอกรหัสผ่าน').not().isEmpty(),
+    (req, res, next) => {
+        const errors = validationResult(req);
+        if (!errors.isEmpty())
             return res.status(400).json({ status: false, input_err: errors["errors"] });
         next();
     }
