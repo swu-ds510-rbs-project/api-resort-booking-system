@@ -3,6 +3,8 @@ import cors from "cors";
 import config from 'config';
 
 import db from './database/connection.js';
+import houseRouter from './routes/house.js'
+
 const app = express();
 const PORT = config.get("PORT");
 // const CLIENT = config.get("CLIENT");
@@ -24,7 +26,7 @@ try {
 }
 
 app.get('/titles', async (req, res) => {
-    db.query(`SELECT * FROM titles LIMIT 3;`, (err, result) => {
+    db.query(`SELECT * FROM booking LIMIT 3;`, (err, result) => {
         if (err) {
             console.log(err);
         } else {
@@ -32,5 +34,7 @@ app.get('/titles', async (req, res) => {
         }
     });
 });
+
+app.use('/house', houseRouter);
 
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
