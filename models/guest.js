@@ -35,10 +35,10 @@ export default class Guest {
             let query = "SELECT * FROM guest where email = ?"
             db.query(query, filter.email, (err, res) => {
                 if (err) result(err, null);
-                else if (res.length === 0) result("not found email", null);
+                else if (res.length === 0) result(["ไม่พบอีเมลนี้ในระบบ"], null);
                 else {
                     bcrypt.compare(filter.password, res[0].password, (err, response) => {
-                        if (!response) result("password invaild", null);
+                        if (!response) result(["รหัสผ่านไม่ถูกต้อง"], null);
                         else {
                             var token = jwt.sign({ email: filter.email }, SECRET, { expiresIn: '10h' });
                             res[0].token = token

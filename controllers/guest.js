@@ -26,7 +26,7 @@ export default class GuestController {
 
             GuestModel.getGuestByLogin({ email, password }, (err, data) => {
                 if (err) res.status(500).json({ status: false, error: err })
-                else res.send({ status: true, data });
+                else res.send({ status: true, data: data[0] });
             })
         } catch (e) {
             res.status(500).json({ status: false, error: e.message })
