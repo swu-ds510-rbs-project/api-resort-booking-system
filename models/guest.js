@@ -56,7 +56,6 @@ export default class Guest {
 
     static async verifyGuest(token, result) {
         try {
-            console.log(token)
             var decoded = jwt.verify(token, SECRET);
             result(null, decoded)
         } catch (e) {
