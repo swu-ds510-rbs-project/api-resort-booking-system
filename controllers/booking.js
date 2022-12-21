@@ -12,4 +12,16 @@ export default class HouseController {
             res.status(500).json({ status: false, error: e.message })
         }
     }
+
+    static async apiGetBookingsByGuest(req, res, next) {
+        try {
+            const guestId = req.params.guestId
+            BookingModel.getBookingsByGuest(guestId, (err, data) => {
+                if (err) res.status(500).json({ status: false, error: err })
+                else res.send({ status: true, data });
+            })
+        } catch (e) {
+            res.status(500).json({ status: false, error: e.message })
+        }
+    }
 }
