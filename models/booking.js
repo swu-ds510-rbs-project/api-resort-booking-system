@@ -41,4 +41,12 @@ export default class Booking {
             else result(null, res);
         })
     }
+
+    static async getFreqNoOfBooking(result) {
+        const query = `SELECT DATEDIFF(checkout_date, checkin_date) AS booking_total_days, count(*) as times FROM booking group by booking_total_days order by booking_total_days`
+        db.query(query, (err, res) => {
+            if (err) result(err, null);
+            else result(null, res);
+        })
+    }
 }
