@@ -25,4 +25,12 @@ export default class Booking {
             else result(null, res);
         })
     }
+
+    static async getTotalBookingPerMonthYear(result) {
+        const query = `SELECT DATE_FORMAT(checkin_date, "%Y-%m") as checkin_month_year, count(*) as total_bookings FROM booking group by checkin_month_year order by checkin_month_year`
+        db.query(query, (err, res) => {
+            if (err) result(err, null);
+            else result(null, res);
+        })
+    }
 }
