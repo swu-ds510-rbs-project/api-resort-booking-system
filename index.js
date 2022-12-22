@@ -6,6 +6,7 @@ import db from './database/connection.js';
 import houseRouter from './routes/house.js'
 import guestRouter from './routes/guest.js'
 import bookingRouter from './routes/booking.js'
+import adminRouter from './routes/admin.js'
 
 const app = express();
 const PORT = config.get("PORT");
@@ -40,5 +41,6 @@ app.get('/titles', async (req, res) => {
 app.use('/house', houseRouter);
 app.use('/guest', guestRouter);
 app.use('/booking', bookingRouter);
+app.use('/admin', adminRouter);
 
 app.use("*", (req, res) => res.status(404).json({ error: "not found" }));
