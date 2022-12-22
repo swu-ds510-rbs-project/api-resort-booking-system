@@ -35,4 +35,15 @@ export default class HouseController {
             res.status(500).json({ status: false, error: e.message })
         }
     }
+    
+    static async apiGetTotalBookingPerHouse(req, res, next) {
+        try {
+            BookingModel.getTotalBookingPerHouse((err, data) => {
+                if (err) res.status(500).json({ status: false, error: err })
+                else res.send({ status: true, data });
+            })
+        } catch (e) {
+            res.status(500).json({ status: false, error: e.message })
+        }
+    }
 }

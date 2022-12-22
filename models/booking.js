@@ -33,4 +33,12 @@ export default class Booking {
             else result(null, res);
         })
     }
+
+    static async getTotalBookingPerHouse(result) {
+        const query = `SELECT h.name, count(*) as total_bookings FROM booking b join house h on b.house_id = h.house_id group by h.house_id order by total_bookings desc`
+        db.query(query, (err, res) => {
+            if (err) result(err, null);
+            else result(null, res);
+        })
+    }
 }
