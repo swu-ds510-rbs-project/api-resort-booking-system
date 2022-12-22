@@ -19,7 +19,7 @@ export default class Booking {
     }
 
     static async getBookingsByGuest(guest_id, result) {
-        const query = `SELECT * FROM booking WHERE guest_id = ?`
+        const query = `SELECT * FROM booking b JOIN house h ON b.house_id = h.house_id WHERE guest_id = ?`
         db.query(query, guest_id, (err, res) => {
             if (err) result(err, null);
             else result(null, res);
